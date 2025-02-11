@@ -53,7 +53,7 @@ app = FastAPI(
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  
+    allow_origins=["http://localhost:3000"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -74,14 +74,14 @@ database = db_client.mental_health_db
 
 class ChatMessage(BaseModel):
     content: str
-    timestamp: datetime = Field(default_factory=datetime.timezone.utc)
+    timestamp: datetime = Field(default_factory=datetime.utcnow)
     
 class ChatInput(BaseModel):
     message: str
 
 class ChatResponse(BaseModel):
     response: str
-    timestamp: datetime = Field(default_factory=datetime.timezone.utc)
+    timestamp: datetime = Field(default_factory=datetime.utcnow)
 
 # Add this class for managing the chatbot
 class TherapyChatbot:
