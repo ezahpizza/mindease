@@ -272,7 +272,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
-    except jwt.JWTError:
+    except jwt.PyJWTError:
         raise credentials_exception
     
     user_doc = await database.users.find_one({"username": username})
@@ -438,7 +438,6 @@ async def get_chat_history(
         )
 
 # Startup and shutdown events
-# In your main.py startup
 @app.on_event("startup")
 async def startup_db_client():
     # Initialize MongoDB
